@@ -170,7 +170,7 @@ client.on('message', message => { /// بوت
           .setAuthor(client.user.username,client.user.avatarURL)
           .setThumbnail(client.user.avatarURL)
           .setColor('RANDOM')
-          .setTitle('``INFO Speed Bot`` ')
+          .setTitle('``INFO RATE Bot.`` ')
           .addField('``My Ping``' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
           .addField('``RAM Usage``', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
           .addField('``servers``', [client.guilds.size], true)
