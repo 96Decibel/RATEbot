@@ -13,6 +13,7 @@ client.on('message', msg => {
     msg.channel.send('→ **$bot | To See Some Information About The bot**');
     msg.channel.send('→ **$id | Get User ID**');
     msg.channel.send('→ **$skin | To See Minecraft Skin For User**');
+    msg.channel.send('→ **$Support | To See Support Server**');
     msg.channel.send('-:small_blue_diamond: :large_blue_diamond: `Public Commands` :large_blue_diamond: :small_blue_diamond:-');
     msg.channel.send('→ **$clear | To Clear Room Messages**');
     msg.channel.send('→ **$ban | To Ban Someone**');
@@ -103,12 +104,26 @@ client.on('message', message => {/// انفايت
       if(!message.channel.guild) return;
   let embed = new Discord.RichEmbed()
   .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
-  .setTitle(`â‍، Click Here `)
+  .setTitle(` Click Here `)
   .setURL(`https://discordapp.com/api/oauth2/authorize?client_id=577627188841676800&permissions=8&scope=bot`)
   .setThumbnail(" https://cdn.discordapp.com/avatars/377904849783750667/6c76e412f18c142dfd711d05fb363869.png?size=2048")        
 message.channel.sendEmbed(embed);
  }
 });
+
+client.on('message', message => {/// سابورت
+  if (message.content === "$support") {
+      if(!message.channel.guild) return;
+  let embed = new Discord.RichEmbed()
+  .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
+  .setTitle(` Support Server `)
+  .setURL(`https://discord.gg/DheM3Zy`)
+  .setThumbnail(" https://cdn.discordapp.com/avatars/377904849783750667/6c76e412f18c142dfd711d05fb363869.png?size=2048")        
+message.channel.sendEmbed(embed);
+ }
+});
+
+
 client.on("message", msg => { /// اي دي
   if(msg.content === '$' + "id") {
       const embed = new Discord.RichEmbed();
