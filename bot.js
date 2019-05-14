@@ -15,6 +15,8 @@ client.on('message', message => {
 .addField('→ **$bot | To See Some Information About The bot**')
 .addField('→ **$id | Get User ID**')
 .addField('→ **$skin | To See Minecraft Skin For User**')
+.addField('→ **$avatar | To See Your Avatar**')
+.addField('→ **$support | To Join Support Server**')
 .addField('-:small_blue_diamond: :large_blue_diamond: `Admin Commands` :large_blue_diamond: :small_blue_diamond:-')
 .addField('→ **$clear | To Clear Room Messages**')
 .addField('→ **$ban | To Ban Someone**')
@@ -110,6 +112,19 @@ client.on('message', message => {/// انفايت
 message.channel.sendEmbed(embed);
  }
 });
+
+client.on('message', message => {/// سبورت
+  if (message.content === "$support") {
+      if(!message.channel.guild) return;
+  let embed = new Discord.RichEmbed()
+  .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
+  .setTitle(` Support Server `)
+  .setURL(`https://discord.gg/DheM3Zy`)    
+message.channel.sendEmbed(embed);
+ }
+});
+
+
 client.on("message", msg => { /// اي دي
   if(msg.content === '$' + "id") {
       const embed = new Discord.RichEmbed();
@@ -172,7 +187,7 @@ client.on('message', message => { /// بوت
           .setAuthor(client.user.username,client.user.avatarURL)
           .setThumbnail(client.user.avatarURL)
           .setColor('RANDOM')
-          .setTitle('``INFO Speed Bot`` ')
+          .setTitle('``Ratebot ©`` ')
           .addField('``My Ping``' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
           .addField('``RAM Usage``', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
           .addField('``servers``', [client.guilds.size], true)
