@@ -3,26 +3,27 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`${client.user.tag} Ready !`);
-  client.user.setGame(`$help  | Ramadan 🌙`,'https://www.twitch.tv/TEST-Broadcast');
+  client.user.setGame(`$help  | Ramadan 🌙`,'https://www.twitch.tv/RATEbot');
 });
 
-client.on('message', msg => {
-  if (msg.content === '$help') {
-    msg.channel.send('-:small_blue_diamond: :large_blue_diamond: `Public Commands` :large_blue_diamond: :small_blue_diamond:-');
-    msg.channel.send('→ **$inv | Invite RateBot.**');
-    msg.channel.send('→ **$bot | To See Some Information About The bot**');
-    msg.channel.send('→ **$id | Get User ID**');
-    msg.channel.send('→ **$skin | To See Minecraft Skin For User**');
-    msg.channel.send('→ **$Support | To See Support Server**');
-    msg.channel.send('-:small_blue_diamond: :large_blue_diamond: `Public Commands` :large_blue_diamond: :small_blue_diamond:-');
-    msg.channel.send('→ **$clear | To Clear Room Messages**');
-    msg.channel.send('→ **$ban | To Ban Someone**');
-    msg.channel.send('→ **$kick | To kick Some One**');
-    msg.channel.send('→ **$mute | To Mute Someone**');
-    msg.channel.send('→ **$role | Give Role To Some One**');
-    msg.channel.send('→ **$bc | Send Broadcast To All**');
-msg.react("✅")
-  }
+client.on('message', message => {
+  if (message.content === "$help") {
+  let embed = new Discord.RichEmbed()
+.setThumbnail(message.author.avatarURL)
+.addField('-:small_blue_diamond: :large_blue_diamond: `Public Commands` :large_blue_diamond: :small_blue_diamond:-')
+.addField('→ **$inv | Invite RateBot.**')
+.addField('→ **$bot | To See Some Information About The bot**')
+.addField('→ **$id | Get User ID**')
+.addField('→ **$skin | To See Minecraft Skin For User**')
+.addField('-:small_blue_diamond: :large_blue_diamond: `Admin Commands` :large_blue_diamond: :small_blue_diamond:-')
+.addField('→ **$clear | To Clear Room Messages**')
+.addField('→ **$ban | To Ban Someone**')
+.addField('→ **$kick | To kick Some One**')
+.addField('→ **$mute | To Mute Someone**')
+.addField('→ **$role | Give Role To Some One**')
+.setColor('RANDOM')
+message.channel.sendEmbed(embed);
+ }
 });
 
 client.on('message', message => { /// بان
@@ -105,25 +106,10 @@ client.on('message', message => {/// انفايت
   let embed = new Discord.RichEmbed()
   .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
   .setTitle(` Click Here `)
-  .setURL(`https://discordapp.com/api/oauth2/authorize?client_id=577627188841676800&permissions=8&scope=bot`)
-  .setThumbnail(" https://cdn.discordapp.com/avatars/377904849783750667/6c76e412f18c142dfd711d05fb363869.png?size=2048")        
+  .setURL(`https://discordapp.com/api/oauth2/authorize?client_id=577627188841676800&permissions=8&scope=bot`)    
 message.channel.sendEmbed(embed);
  }
 });
-
-client.on('message', message => {/// سابورت
-  if (message.content === "$support") {
-      if(!message.channel.guild) return;
-  let embed = new Discord.RichEmbed()
-  .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
-  .setTitle(` Support Server `)
-  .setURL(`https://discord.gg/DheM3Zy`)
-  .setThumbnail(" https://cdn.discordapp.com/avatars/377904849783750667/6c76e412f18c142dfd711d05fb363869.png?size=2048")        
-message.channel.sendEmbed(embed);
- }
-});
-
-
 client.on("message", msg => { /// اي دي
   if(msg.content === '$' + "id") {
       const embed = new Discord.RichEmbed();
@@ -186,7 +172,7 @@ client.on('message', message => { /// بوت
           .setAuthor(client.user.username,client.user.avatarURL)
           .setThumbnail(client.user.avatarURL)
           .setColor('RANDOM')
-          .setTitle('``INFO Rate Bot`` ')
+          .setTitle('``INFO Speed Bot`` ')
           .addField('``My Ping``' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
           .addField('``RAM Usage``', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
           .addField('``servers``', [client.guilds.size], true)
@@ -194,9 +180,9 @@ client.on('message', message => { /// بوت
           .addField('``Users``' ,`[ ${client.users.size} ]` , true)
           .addField('``My Name``' , `[ ${client.user.tag} ]` , true)
           .addField('``My ID``' , `[ ${client.user.id} ]` , true)
-          .addField('``My Prefix``' , `[ - ]` , true)
+          .addField('``My Prefix``' , `[ $ ]` , true)
           .addField('``My Language``' , `[ Java Script ]` , true)
-          .setFooter('By | Elmusaui_GK and Speed')
+          .setFooter('By | RATE')
   })
 }
 });
@@ -325,50 +311,5 @@ client.on("message", message => {/// اعطاء الرتب
 		} 
 	} 
 });
-
-client.on('message', message => { /// برودكاست
-  var prefix = "$";
-          if(!message.channel.guild) return;
-if(message.content.startsWith(prefix + 'bc')) {
-if(!message.channel.guild) return message.channel.send('**This Command Only For Servers**').then(m => m.delete(5000));
-if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You Dont Have perms** `ADMINISTRATOR`' );
-let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-let copy = "Speed Bot";
-let request = `Requested By ${message.author.username}`;
-if (!args) return message.reply('**Write Some Things To Broadcast**');message.channel.send(`**Are You Sure \nThe Broadcast: ** \` ${args}\``).then(msg => {
-msg.react('✅')
-.then(() => msg.react('❌'))
-.then(() =>msg.react('✅'))
-
-let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-
-let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-reaction1.on("collect", r => {
-message.channel.send(`**☑ | Done ... The Broadcast Message Has Been Sent To __${message.guild.members.size}__ Members**`).then(m => m.delete(5000));
-message.guild.members.forEach(m => {
-
-var bc = new
-   Discord.RichEmbed()
-   .setColor('RANDOM')
-   .setTitle('Broadcast')
-   .addField('Server', message.guild.name)
-   .addField('Sender', message.author.username)
-   .addField('Message', args)
-   .setThumbnail(message.author.avatarURL)
-   .setFooter(copy, client.user.avatarURL);
-m.send({ embed: bc })
-msg.delete();
-})
-})
-reaction2.on("collect", r => {
-message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
-msg.delete();
-})
-})
-}
-});
-
 
 client.login(process.env.BOT_TOKEN);
