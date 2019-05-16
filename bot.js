@@ -11,18 +11,17 @@ client.on('message', message => {
   let embed = new Discord.RichEmbed()
 .setThumbnail(message.author.avatarURL)
 .addField('-:small_blue_diamond: :large_blue_diamond: `Public Commands` :large_blue_diamond: :small_blue_diamond:-')
-.addField('→ **$inv | Invite RateBot.**')
 .addField('→ **$bot | To See Some Information About The bot**')
 .addField('→ **$id | Get User ID**')
 .addField('→ **$skin | To See Minecraft Skin For User**')
 .addField('→ **$avatar | To See Your Avatar**')
-.addField('→ **$support | To Join Support Server**')
 .addField('-:small_blue_diamond: :large_blue_diamond: `Admin Commands` :large_blue_diamond: :small_blue_diamond:-')
 .addField('→ **$clear | To Clear Room Messages**')
 .addField('→ **$ban | To Ban Someone**')
 .addField('→ **$kick | To kick Some One**')
 .addField('→ **$mute | To Mute Someone**')
 .addField('→ **$role | Give Role To Some One**')
+.addField('→ **$bc | Send Broadcast**')
 .setColor('RANDOM')
 message.channel.sendEmbed(embed);
  }
@@ -101,29 +100,6 @@ client.on('message', message => { /// كيك
   })
 }
 });
-
-client.on('message', message => {/// انفايت
-  if (message.content === "$inv") {
-      if(!message.channel.guild) return;
-  let embed = new Discord.RichEmbed()
-  .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
-  .setTitle(` Click Here `)
-  .setURL(`https://discordapp.com/api/oauth2/authorize?client_id=577627188841676800&permissions=8&scope=bot`)    
-message.channel.sendEmbed(embed);
- }
-});
-
-client.on('message', message => {/// سبورت
-  if (message.content === "$support") {
-      if(!message.channel.guild) return;
-  let embed = new Discord.RichEmbed()
-  .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
-  .setTitle(` Support Server `)
-  .setURL(`https://discord.gg/DheM3Zy`)    
-message.channel.sendEmbed(embed);
- }
-});
-
 
 client.on("message", msg => { /// اي دي
   if(msg.content === '$' + "id") {
@@ -326,5 +302,45 @@ client.on("message", message => {/// اعطاء الرتب
 		} 
 	} 
 });
+
+client.on('message', message => {
+  if (message.content.split(' ')[0] == '$bc')
+     message.guild.members.forEach( member => {
+       if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+
+
+         member.send( `${member}  ` + message.content.substr(3));
+                                                    message.delete();
+          
+                                                  });
+          
+                                                });
+ client.on("message", message => {
+     var prefix = "$";
+
+           var args = message.content.substring(prefix.length).split(" ");
+              if (message.content.startsWith(prefix + "bc")) {
+                        if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+
+                        if (!args[1]) {
+                          
+                               let embed3 = new Discord.RichEmbed()
+                                   .setDescription(":white_check_mark: | تم ارسال رسالة لا يوجد فيها شيء")
+                                     .setColor("#FF00FF")
+                                        message.channel.sendEmbed(embed3);
+                          
+                                      } else {
+
+                          
+                                         let embed4 = new Discord.RichEmbed()
+                                                          .setDescription(':white_check_mark: | تم ارسال الرساله للجميع ..')
+                                                              .setColor("#99999")
+                             
+                                                              message.channel.sendEmbed(embed4);
+                                                    message.delete();
+                          }
+                        }
+});
+
 
 client.login(process.env.BOT_TOKEN);
