@@ -383,7 +383,7 @@ client.on("message", (message) => {
  
        message.channel.send(`هل انت متأكد من اقفالك للتذكرة اذا متأكد اكتب #confirm`)
            .then((m) => {
-               message.channel.awaitMessages(response => response.content === '#confirm', {
+               message.channel.awaitMessages(response => response.content === '$confirm', {
                        max: 1,
                        time: 10000,
                        errors: ['time'],
@@ -483,23 +483,22 @@ client.on('message' , message => {
       await new_message.react('9⃣');
       await new_message.react('🆗');
       await new_message.edit(`It\'s <@${turn_id}>\'s turn! Your symbol is ${symbol}`)
-     .then((new_new_message) => {
-       require('./xo.js')(client, message, new_new_message, player1_id, player2_id, turn_id, symbol, symbols, grid_message);
-     })
-     .then(console.log("Successful tictactoe listener initialization"))
-     .catch(console.error);
-   })
-   .then(console.log("Successful tictactoe react initialization"))
-   .catch(console.error);
- }
- else {
-   message.reply(`منشن مع من تريد ألعب`)
-   .then(console.log("Successful error reply"))
-   .catch(console.error);
- }
+      .then((new_new_message) => {
+        require('./xo.js')(client, message, new_new_message, player1_id, player2_id, turn_id, symbol, symbols, grid_message);
+      })
+      .then(console.log("Successful tictactoe listener initialization"))
+      .catch(console.error);
+    })
+    .then(console.log("Successful tictactoe react initialization"))
+    .catch(console.error);
+  }
+  else {
+    message.reply(`منشن مع من تريد ألعب`)
+    .then(console.log("Successful error reply"))
+    .catch(console.error);
+  }
 }
 });
-
 
 
 client.login(process.env.BOT_TOKEN);
