@@ -7,71 +7,26 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-if (message.content.startsWith(prefix + 'help')) {
-    let pages = [
-    `=-=-=-=-=-= 🌍 Public Commands - اوامر عامة 🌍 =-=-=-=-=-=
-     ✴**$bot | To See Some Information About The bot**
-    ✴**$id | Get User ID**
-    ✴**$skin | To See Minecraft Skin For User**
-    ✴**$avatar | To See Your Avatar**
-     ===========================================================
-      React With ▶ To See Admins Commands`,
-    `=-=-=-=-=-= 🔧  Admin Commands - اوامر ادارية 🔧 =-=-=-=-=-=
-    ❖**$clear | To Clear Room Messages**
-    ❖**$ban | To Ban Someone**
-    ❖**$kick | To kick Some One**
-    ❖**$mute | To Mute Someone**
-    ❖**$role | Give Role To Some One**
-    ❖**$bc | Send Broadcast**
-    ❖**$new | Create A Ticket**
-     ===========================================================
-      React With ▶ To See Games Commands`,
-    `=-=-=-=-=-= 🎯  Games Commands - اوامر الالعاب 🎯 =-=-=-=-=-=
-    💠
-    ===========================================================
-      React With ▶ To See Music Commands`,
-    `=-=-=-=-=-= 🎯  Music Commands - اوامر الموسيقى 🎯 =-=-=-=-=-=
-   `SOON`
-    Soon And I Will Translate The Command To Englih`]
-    let page = 1;
- 
-    let embed = new Discord.RichEmbed()
-    .setColor('RANDOM')
-    .setFooter(`Page ${page} of ${pages.length}`)
-    .setDescription(pages[page-1])
- 
-    message.channel.sendEmbed(embed).then(msg => {
- 
-        msg.react('◀').then( r => {
-            msg.react('▶')
- 
- 
-        const backwardsFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
-        const forwardsFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
- 
- 
-        const backwards = msg.createReactionCollector(backwardsFilter, { time: 20000});
-        const forwards = msg.createReactionCollector(forwardsFilter, { time: 20000});
- 
- 
- 
-        backwards.on('collect', r => {
-            if (page === 1) return;
-            page--;
-            embed.setDescription(pages[page-1]);
-            embed.setFooter(`Page ${page} of ${pages.length}`);
-            msg.edit(embed)
-        })
-        forwards.on('collect', r => {
-            if (page === pages.length) return;
-            page++;
-            embed.setDescription(pages[page-1]);
-            embed.setFooter(`Page ${page} of ${pages.length}`);
-            msg.edit(embed)
-        })
-        })
-    })
-    }
+  if (message.content === "$help") {
+  let embed = new Discord.RichEmbed()
+.setThumbnail(message.author.avatarURL)
+.addField('    `=-=-=-=-=-= 🌍 Public Commands - اوامر عامة 🌍 =-=-=-=-=-=`')
+.addField('→ **$avatar | To See Your Avatar**')
+.addField('→ **$bot | To See Some Information About The bot**')
+.addField('→ **$id | Get User ID**')
+.addField('→ **$skin | To See Minecraft Skin For User**')
+.addField('    `=-=-=-=-=-= 🔧  Admin Commands - اوامر ادارية 🔧 =-=-=-=-=-=`')
+.addField('→ **$clear | To Clear Room Messages**')
+.addField('→ **$ban | To Ban Someone**')
+.addField('→ **$kick | To kick Some One**')
+.addField('→ **$mute | To Mute Someone**')
+.addField('→ **$role | Give Role To Some One**')
+.addField('→ **$bc | Send Broadcast To All**')
+.addField('    `=-=-=-=-=-= 🎯  Games Commands - اوامر الالعاب 🎯 =-=-=-=-=-=`')
+.addField('→ **$xo | To Play XO**')
+.setColor('RANDOM')
+message.channel.sendEmbed(embed);
+ }
 });
 
 client.on('message', message => { /// بان
