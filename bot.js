@@ -10,20 +10,22 @@ client.on('message', message => {
   if (message.content === "$help") {
   let embed = new Discord.RichEmbed()
 .setThumbnail(message.author.avatarURL)
-.addField('    `=-=-=-=-=-= 🌍 Public Commands - اوامر عامة 🌍 =-=-=-=-=-=`')
+.addField('    `=-=-=-=-= 🌍 Public Commands - اوامر عامة 🌍 =-=-=-=-=`')
 .addField('→ **$avatar | To See Your Avatar**')
 .addField('→ **$bot | To See Some Information About The bot**')
 .addField('→ **$id | Get User ID**')
 .addField('→ **$skin | To See Minecraft Skin For User**')
-.addField('    `=-=-=-=-=-= 🔧  Admin Commands - اوامر ادارية 🔧 =-=-=-=-=-=`')
+.addField('    `=-=-=-=-= 🔧  Admin Commands - اوامر ادارية 🔧 =-=-=-=-=`')
 .addField('→ **$clear | To Clear Room Messages**')
 .addField('→ **$ban | To Ban Someone**')
 .addField('→ **$kick | To kick Some One**')
 .addField('→ **$mute | To Mute Someone**')
 .addField('→ **$role | Give Role To Some One**')
 .addField('→ **$bc | Send Broadcast To All**')
-.addField('    `=-=-=-=-=-= 🎯  Games Commands - اوامر الالعاب 🎯 =-=-=-=-=-=`')
+.addField('    `=-=-=-=-= 🎯  Games Commands - اوامر الالعاب 🎯 =-=-=-=-=`')
 .addField('→ **$xo | To Play XO**')
+.addField('→ **$ct | To Play CutTwitts**')
+.addField('→ **$lw | To Play Lw Khayarouk**')
 .setColor('RANDOM')
 message.channel.sendEmbed(embed);
  }
@@ -400,103 +402,88 @@ client.on("message", (message) => {
  
 });
  
-const developers = ["472413769700474901","530495558737985548"]
-client.on('message', message => {
-    var argresult = message.content.split(` `).slice(1).join(' ');
-      if (!developers.includes(message.author.id)) return;
-     
-  if (message.content.startsWith(adminprefix + 'setg')) {
-    client.user.setGame(argresult);
-      message.channel.send(`**✅   ${argresult}**`)
-  } else
-     if (message.content === (adminprefix + "leave")) {
-    message.guild.leave();        
-  } else  
-  if (message.content.startsWith(adminprefix + 'setw')) {
-  client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.send(`**✅   ${argresult}**`)
-  } else
-  if (message.content.startsWith(adminprefix + 'setl')) {
-  client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.send(`**✅   ${argresult}**`)
-  } else
-  if (message.content.startsWith(adminprefix + 'sets')) {
-    client.user.setGame(argresult, "https://www.twitch.tv/dream");
-      message.channel.send(`**✅**`)
-  }
-  if (message.content.startsWith(adminprefix + 'setname')) {
-  client.user.setUsername(argresult).then
-      message.channel.send(`Changing The Name To ..**${argresult}** `)
-} else
-if (message.content.startsWith(adminprefix + 'setava')) {
-  client.user.setAvatar(argresult);
-    message.channel.send(`Changing The Avatar To :**${argresult}** `);
-}
+ const cuttweet = [
+     'كت تويت ‏| تخيّل لو أنك سترسم شيء وحيد فيصبح حقيقة، ماذا سترسم؟',
+     'كت تويت | أكثر شيء يُسكِت الطفل برأيك؟',
+     'كت تويت | الحرية لـ ... ؟',
+     'كت تويت | قناة الكرتون المفضلة في طفولتك؟',
+     'كت تويت ‏| كلمة للصُداع؟',
+     'كت تويت ‏| ما الشيء الذي يُفارقك؟',
+     'كت تويت | موقف مميز فعلته مع شخص ولا يزال يذكره لك؟',
+     'كت تويت ‏| أيهما ينتصر، الكبرياء أم الحب؟',
+     'كت تويت | بعد ١٠ سنين ايش بتكون ؟',
+     'كت تويت ‏| مِن أغرب وأجمل الأسماء التي مرت عليك؟',
+     '‏كت تويت | عمرك شلت مصيبة عن شخص برغبتك ؟',
+     'كت تويت | أكثر سؤال وجِّه إليك مؤخرًا؟',
+     '‏كت تويت | ما هو الشيء الذي يجعلك تشعر بالخوف؟',
+     '‏كت تويت | وش يفسد الصداقة؟',
+     '‏كت تويت | شخص لاترفض له طلبا ؟',
+     '‏كت تويت | كم مره خسرت شخص تحبه؟.',
+     '‏كت تويت | كيف تتعامل مع الاشخاص السلبيين ؟',
+     '‏كت تويت | كلمة تشعر بالخجل اذا قيلت لك؟',
+     '‏كت تويت | جسمك اكبر من عٌمرك او العكسّ ؟!',
+     '‏كت تويت |أقوى كذبة مشت عليك ؟',
+     '‏كت تويت | تتأثر بدموع شخص يبكي قدامك قبل تعرف السبب ؟',
+     'كت تويت | هل حدث وضحيت من أجل شخصٍ أحببت؟',
+     '‏كت تويت | أكثر تطبيق تستخدمه مؤخرًا؟',
+     '‏كت تويت | ‏اكثر شي يرضيك اذا زعلت بدون تفكير ؟',
+     '‏كت تويت | وش محتاج عشان تكون مبسوط ؟',
+     '‏كت تويت | مطلبك الوحيد الحين ؟',
+     '‏كت تويت | هل حدث وشعرت بأنك ارتكبت أحد الذنوب أثناء الصيام؟',
+]
+ 
+ client.on('message', message => {
+   if (message.content.startsWith("$ct")) {
+                if(!message.channel.guild) return message.reply('** This command only for servers**');
+  var embed = new Discord.RichEmbed()
+  .setColor('RANDOM')
+   .setThumbnail(message.author.avatarURL)
+ .addField('لعبه كت تويت' ,
+  `${cuttweet[Math.floor(Math.random() * cuttweet.length)]}`)
+  message.channel.sendEmbed(embed);
+  console.log('[id] Send By: ' + message.author.username)
+    }
 });
 
-client.on('message' , message => {
-  var prefix = "$";
-  if(message.author.bot) return;
+const secre = [
+  "**لو خيروك بين العيش وحدك في جزيرة كبيرة منعزلة مع أكبر درجات الرفاهية وبين العيش في مكان قديم ولكن مع أصدقائك المقربين**.",
+  "**لو خيروك بين فقدان ذاكرتك والعيش مع أصدقائك وأقربائك أو بقاء ذاكرتك ولكن العيش وحيد**.",
+  "**للو خيروك بين تناول الخضار والفاكهة طوال حياتك أو تناول اللحوم**.",
+  "**لو خيروك بين رؤية الأشباح فقط أو سماع صوتها فقط**.",
+  "**لو خيروك بين القدرة على سماع أفكار الناس أو القدرة على العودة في الزمن للخلف**.",
+  "**لو خيروك بين القدرة على الاختفاء أو القدرة على الطيران**.",
+  "**لو خيروك بين أن تعيش 5 دقائق في الماضي أو أن تعيشها في المستقبل**.",
+  "**لو خيروك بين 5 ملايين دولار أو 5 ملايين لحظة سعادة حقيقيةا**.",
+  "**لو خيروك بين الاعتذار عن خطأ اقترفته أو أن يقدم لك شخص أخطأ في حقق اعتذار**.",
+  "**لو خيروك بين الحقد أو المسامحة**.",
+  "**لو خيروك بين إنقاذ نفسك أو إنقاذ شخص وقد يعرضك ذلك للأذى**.",
+  "**لو خيروك بين أن تعيش في القرن الرابع عشر أو القرن الحالي**.",
+  "**لو خيروك بين امتلاك سرعة الفهد أو دهاء الثعلب**.",
+  "**لو خيروك بين أن تحصل على درجة كاملة في كامل اختباراتك القادمة والسابقة أو أن تسافر إلى بلد تحبه**.",
+  "**لو خيروك بين العيش بجانب الجبال والحدائق والأشجار أو العيش بجانب البحر**.",
+  "**لو خيروك بين تحقيق 3 أمنيات (لا تتعلق بأشخاص) أو اختيار 3 أشخاص للعيش معهم طوال حياتك**.",
+  "**لو خيروك بين النوم في غابة مظلمة أو على ظهر سفينة في يوم عاصف**.",
+  "**لو خيروك بين المال أو الجمال**.",
+  "**لو خيروك بين المال أو الذكاء**.",
+  "**لو خيروك بين المال أو الصحة**.",
+  "**لو خيروك بين الجمال أو الذكاء**.",
+  "**لو خيروك بين الذكاء أو الصحة**.",
+  "**لو خيروك بين إرسال رسالة صوتية لأمك مدة دقيقة كاملة لا تحتوي إلا على صراخك وخوفك، أو كسر بيضة نيئة على رأسك**.",
+]
  
-  if(message.content.startsWith(prefix + "xo")) {
- let array_of_mentions = message.mentions.users.array();
-  let symbols = [':o:', ':heavy_multiplication_x:']
-  var grid_message;
  
-  if (array_of_mentions.length == 1 || array_of_mentions.length == 2) {
-    let random1 = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
-    let random2 = Math.abs(random1 - 1);
-    if (array_of_mentions.length == 1) {
-      random1 = 0;
-      random2 = 0;
+ client.on('message', message => {
+   if (message.content.startsWith("$lw")) {
+                if(!message.channel.guild) return message.reply('** This command only for servers**');
+  var embed = new Discord.RichEmbed()
+  .setColor('RANDOM')
+ 
+   .setThumbnail(message.author.avatarURL)
+ .addField('لعبه لو خيروك' ,
+  `${secre[Math.floor(Math.random() * secre.length)]}`)
+  message.channel.sendEmbed(embed);
+  console.log('[id] Send By: ' + message.author.username)
     }
-    var player1_id = message.author.id
-    let player2_id = array_of_mentions[random2].id;
-    var turn_id = player1_id;
-    var symbol = symbols[0];
-    let initial_message = `Game match between <@${player1_id}> and <@${player2_id}>!`;
-    if (player1_id == player2_id) {
-      initial_message += '\n_( ألعب مع نفسك)_'
-    }
-    message.channel.send(`Xo ${initial_message}`)
-    .then(console.log("Successful tictactoe introduction"))
-    .catch(console.error);
-    message.channel.send(':one::two::three:' + '\n' +
-                         ':four::five::six:' + '\n' +
-                         ':seven::eight::nine:')
-    .then((new_message) => {
-      grid_message = new_message;
-    })
-    .then(console.log("Successful tictactoe game initialization"))
-    .catch(console.error);
-    message.channel.send('يجب الانتضار حيث ما يتم الموافقه')
-    .then(async (new_message) => {
-      await new_message.react('1⃣');
-      await new_message.react('2⃣');
-      await new_message.react('3⃣');
-      await new_message.react('4⃣');
-      await new_message.react('5⃣');
-      await new_message.react('6⃣');
-      await new_message.react('7⃣');
-      await new_message.react('8⃣');
-      await new_message.react('9⃣');
-      await new_message.react('🆗');
-      await new_message.edit(`It\'s <@${turn_id}>\'s turn! Your symbol is ${symbol}`)
-      .then((new_new_message) => {
-        require('./xo.js')(client, message, new_new_message, player1_id, player2_id, turn_id, symbol, symbols, grid_message);
-      })
-      .then(console.log("Successful tictactoe listener initialization"))
-      .catch(console.error);
-    })
-    .then(console.log("Successful tictactoe react initialization"))
-    .catch(console.error);
-  }
-  else {
-    message.reply(`منشن مع من تريد ألعب`)
-    .then(console.log("Successful error reply"))
-    .catch(console.error);
-  }
-}
 });
 
 
